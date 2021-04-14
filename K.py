@@ -12,6 +12,7 @@ import math
 # import K
 # v = K.run( np.array([[1], [4], [3]]) , np.array([[2], [7], [-1]]) )
 
+
 def run(x,z):
     x = np.asarray(x).flatten()
     z = np.asarray(z).flatten()
