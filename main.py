@@ -13,6 +13,8 @@ Y = np.loadtxt('labels.txt')
 print(Y)
 print(Y.shape)
 
+
+#svm
 import random
 import svm
 import svmpredict
@@ -50,3 +52,21 @@ for i in range(len(subset)):
 
 print(err)
 
+
+#perceptron using sklearn
+from sklearn.linear_model import Perceptron
+from sklearn.model_selection import train_test_split, cross_val_score
+#split into training and testing data
+X_train, X_test, y_train, y_test = train_test_split(X, Y, 
+                                                    test_size=0.33, 
+                                                    random_state=4)
+#making the model + fitting the model
+perceptron_model = Perceptron(tol=1e-3, random_state=0)
+perceptron_model.fit(X_train,y_train)
+print('perceptron_model Training score:', perceptron_model.score(X_train,y_train))
+print('perceptron_model Test score:    ', perceptron_model.score(X_test,y_test),'\n')
+
+#cross validation for perceptron
+scores = cross_val_score(estimator=perceptron_model, X=X, y=Y, cv=10)
+print('Cross validation scores: ', scores, '\nmean:', scores.mean(),
+      '\nStandard deviation: ', scores.std(), "\n")
