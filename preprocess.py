@@ -26,7 +26,6 @@ labels = data[:, -1]
 # reshape to n x 1 matrix
 Y = labels.reshape((n,1))
 
-
 # exclude quality column from data
 X = data[:, :-1]
 
