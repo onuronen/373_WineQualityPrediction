@@ -65,18 +65,48 @@ print(err)
 import kerperceptron
 import kerpredict
 from sklearn.model_selection import train_test_split, cross_val_score
-# import sk
-# from sklearn.linear_model import Perceptron
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.linear_model import Perceptron
+
+#reduce size
+#X=X[100:700,:]
+#Y=Y[100:700]
 
 # split into training and testing data
 X_train, X_test, y_train, y_test = train_test_split(X, Y,
-                                                     test_size=0.5,
+                                                     test_size=0.2,
                                                      random_state = 3)
+
+#trying with decision tree
+decision_tree_model = DecisionTreeClassifier(random_state=0, max_depth = 5)
+decision_tree_model.fit(X_train, y_train)
+print('Decision Tree Training score:', decision_tree_model.score(X_train,y_train))
+print('Decision Tree Test score:    ', decision_tree_model.score(X_test,y_test),'\n')
+random_forest_model = RandomForestClassifier(random_state=0, max_depth = 5)
+
+#trying with random forest
+random_forest_model.fit(X_train, y_train)
+print('Random Forest Training score:', random_forest_model.score(X_train,y_train))
+print('Random Forest Test score:    ', random_forest_model.score(X_test,y_test),'\n')
+
+# trying with linear perceptron
+perceptron_model = Perceptron(tol=1e-3, random_state=0)
+perceptron_model.fit(X_train,y_train)
+print('perceptron_model Training score:', perceptron_model.score(X_train,y_train))
+print('perceptron_model Test score:    ', perceptron_model.score(X_test,y_test),'\n')
+
+# #cross validation for perceptron
+scores = cross_val_score(estimator=perceptron_model, X=X, y=Y, cv=10)
+print('Cross validation scores: ', scores, '\nmean:', scores.mean(),
+       '\nStandard deviation: ', scores.std(), "\n")
+
+
+
 # transpose y traininng data to fit kerperceptron
 y_train = np.asmatrix(y_train).transpose()
-
-# fit the model
-alpha, iterr = kerperceptron.run(5, X_train, y_train)
+# fit the kernel perceptron model we made for HW6
+alpha, iterr = kerperceptron.run(10, X_train, y_train)
 
 # predict with testing data
 y_predict = np.empty(len(y_test))
@@ -85,19 +115,9 @@ for i in range(len(y_test)): #looping through each testing data point (z)
     z = X[i]
     # predict y label given an X test data point
     label = kerpredict.run(alpha, X_train, y_train, z)
-    if label != y_test[i]: # if wrong prediciton
+    if label == y_test[i]: # if wrong prediciton
         error += 1
 print("error rate: ", error/len(y_test))
 
 
 
-# #making the model + fitting the model with sklearn
-# perceptron_model = Perceptron(tol=1e-3, random_state=0)
-# perceptron_model.fit(X_train,y_train)
-# print('perceptron_model Training score:', perceptron_model.score(X_train,y_train))
-# print('perceptron_model Test score:    ', perceptron_model.score(X_test,y_test),'\n')
-#
-# #cross validation for perceptron
-# scores = cross_val_score(estimator=perceptron_model, X=X, y=Y, cv=10)
-# print('Cross validation scores: ', scores, '\nmean:', scores.mean(),
-#       '\nStandard deviation: ', scores.std(), "\n")
