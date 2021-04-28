@@ -96,7 +96,7 @@ perceptron_model.fit(X_train,y_train)
 print('perceptron_model Training score:', perceptron_model.score(X_train,y_train))
 print('perceptron_model Test score:    ', perceptron_model.score(X_test,y_test),'\n')
 
-# #cross validation for perceptron
+# cross validation for perceptron
 scores = cross_val_score(estimator=perceptron_model, X=X, y=Y, cv=10)
 print('Cross validation scores: ', scores, '\nmean:', scores.mean(),
        '\nStandard deviation: ', scores.std(), "\n")
@@ -119,5 +119,17 @@ for i in range(len(y_test)): #looping through each testing data point (z)
         error += 1
 print("error rate: ", error/len(y_test))
 
+
+# we want to draw graph of number of iterations in perceptron vs accuracy.
+# we can test perceptron with same training and testing sets with different iterations.
+# we will be using cross validation, where number of folds will be the same for each number of iterations
+# The output from each cross validation will give a vector containing errror rate in each fold. We can
+# take average of error rate from the veector to determine final error rate for the k fold with given number of iterations.
+# Repeat this process for different Ls. 
+# the way its done in case study cv is actually seems different.we have 10 folds, (k = 10). For the first time
+# the test set will contain first 160 samples if we have 1600 data. We train with rest and then we have a global variable
+# y_pred. With the theta we find, we make prediction from the X data of first 160 samples and put the labels we find in first 160 
+# rows of y_pred. Then we repeat this process with second 160 data as test points, fill in y predd. In the end, after 10 folds,
+# we do err = np.mean(y!=y_pred) and get a single error value for number of iterations with 10 fold cross val. 
 
 
