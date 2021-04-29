@@ -52,8 +52,3 @@ def run(k,X,y,gamma):
     
     error = np.mean(y != y_pred)
     return error
-
-
-X = np.loadtxt('X.txt')
-Y = np.loadtxt('labels.txt')
-print(run(10,X,Y,"auto"))

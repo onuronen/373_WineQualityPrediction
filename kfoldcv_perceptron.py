@@ -50,8 +50,3 @@ def run(k,X,y,L):
     
     error = np.mean(y != y_pred)
     return error
-
-
-#X = np.loadtxt('X.txt')
-#Y = np.loadtxt('labels.txt')
-#print(run(10,X,Y,3))
