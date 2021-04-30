@@ -67,22 +67,6 @@ print(err)
 
 
 import kfoldcv_svm
-import kfoldcv_perceptron
-import matplotlib.pyplot as plt
-
-#plot literation fro perceptron
-error = []
-iteration = [1, 3, 5, 7, 9, 11]
-for i in iteration:
-    print(i)
-    error.append(kfoldcv_perceptron.run(2,X_reduced,Y_reduced,i));
-    print(error)
-plt.plot(iteration, error)
-plt.ylabel("Error Rate")
-plt.xlabel("Iterations")
-plt.title("Iteration Hyperparameter vs. Error Rate")
-
-
 
 
 #plot different size
