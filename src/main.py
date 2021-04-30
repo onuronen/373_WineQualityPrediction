@@ -28,7 +28,7 @@ for i in subset:
     Y_sub = Y[0:i]
 
     #split training and testing half-half
-    X_train, X_test, y_train, y_test = train_test_split(X_sub, Y_sub, test_size = 0.5)
+    X_train, X_test, y_train, y_test = train_test_split(X_sub, Y_sub, test_size = 0.5, random_state = 42)
     (training_length, dd) = np.shape(X_train)
     (test_length, features) = np.shape(X_test)
 
@@ -62,7 +62,9 @@ for i in subset:
     svm_err = np.mean(y_test != y_pred_svm)
     svm_error.append(svm_err)
 
-    
+print(svm_error)
+print(perceptron_error)
+
 # plotting data
 fig, axs = plt.subplots(2)
 fig.suptitle('Error Rate vs. Sample Size')
