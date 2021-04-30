@@ -1,0 +1,7 @@
+Libraries:
+numpy, pandas, matplotlib
+pip install numpy
+pip install pandas
+pip install matplotlib
+
+To generate the graphs, run main.py under directory src, main.py under src/perceptron, main.py under src/svm
