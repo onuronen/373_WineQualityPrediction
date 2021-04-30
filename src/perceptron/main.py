@@ -16,7 +16,7 @@ Y = Y[0:800]
 (n,d) = np.shape(X)
 Y = Y.reshape((n,1))
 
-number_of_iterations = [1,2,3,4,5,6]
+number_of_iterations = [1,2,3,4,5,6,7,8]
 err = []
 for i in number_of_iterations:
     print(i)
